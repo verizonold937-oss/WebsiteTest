@@ -3,92 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REXZ-VOID | OMNI DEOBFUSCATOR</title>
+    <title>REXZ-VOID | ADVANCED DEOB</title>
     <style>
-        /* CSS AREA */
         body {
             background-color: #050505;
             color: #00ff00;
             font-family: 'Courier New', Courier, monospace;
             display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0; padding: 10px;
+            min-height: 100vh; margin: 0; padding: 15px;
         }
         .container {
-            width: 100%; max-width: 700px;
-            background: #0f0f0f; padding: 25px;
-            border: 1px solid #222; border-radius: 12px;
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.05);
+            width: 100%; max-width: 850px;
+            background: #0d0d0d; padding: 25px;
+            border: 1px solid #1a1a1a; border-radius: 15px;
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.05);
         }
-        h1 { text-align: center; font-size: 1.2rem; letter-spacing: 3px; color: #fff; margin-bottom: 20px; }
+        h1 { text-align: center; font-size: 1.4rem; letter-spacing: 4px; color: #fff; text-shadow: 0 0 10px #00ff00; }
+        .box-label { font-size: 0.7rem; color: #555; margin-bottom: 5px; display: block; text-transform: uppercase; }
         textarea {
-            width: 100%; height: 180px;
+            width: 100%; height: 200px;
             background: #000; color: #00ff00;
-            border: 1px solid #333; border-radius: 8px;
+            border: 1px solid #222; border-radius: 8px;
             padding: 12px; box-sizing: border-box;
-            resize: none; font-size: 0.85rem; margin-bottom: 15px;
-            outline: none;
+            resize: none; font-size: 0.8rem; margin-bottom: 15px;
+            outline: none; transition: 0.3s;
         }
-        textarea:focus { border-color: #00ff00; }
-        .actions { display: flex; gap: 10px; margin-bottom: 15px; }
+        textarea:focus { border-color: #00ff00; box-shadow: 0 0 10px rgba(0, 255, 0, 0.1); }
+        .actions { display: flex; gap: 12px; margin-bottom: 15px; }
         button {
-            flex: 1; padding: 15px;
+            flex: 1; padding: 16px;
             background: #00ff00; color: #000;
             border: none; border-radius: 6px;
             font-weight: bold; cursor: pointer; font-size: 0.9rem;
-            transition: 0.3s;
+            text-transform: uppercase;
         }
-        button.secondary { background: #1a1a1a; color: #fff; border: 1px solid #333; }
-        button:hover { opacity: 0.8; }
-        .status { font-size: 0.7rem; color: #555; text-align: center; margin-top: 10px; }
+        button.secondary { background: #151515; color: #fff; border: 1px solid #333; }
+        button:hover { filter: brightness(1.2); }
+        .footer { font-size: 0.65rem; text-align: center; color: #444; margin-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>💀 REXZ-VOID DEOB</h1>
+        <h1>💀 REXZ-VOID OMNI DEOB</h1>
         
-        <textarea id="inputCode" placeholder="Paste Kode atau Link Raw (GitHub/Pastebin) di sini..."></textarea>
+        <span class="box-label">Input (Paste Code or Raw Link)</span>
+        <textarea id="inputCode" placeholder="Paste script berantakan atau link raw di sini..."></textarea>
         
         <div class="actions">
-            <button onclick="processDeob()">UNPACK & DEOB</button>
+            <button onclick="smartDeob()">DEOBFUSCATE & CLEAN</button>
             <button onclick="copyCode()" class="secondary">COPY RESULT</button>
         </div>
 
-        <textarea id="outputCode" placeholder="Hasil akan muncul di sini..." readonly></textarea>
+        <span class="box-label">Output (Readable Version)</span>
+        <textarea id="outputCode" placeholder="Hasil yang sudah bersih akan muncul di sini..." readonly></textarea>
         
-        <div class="status">Rexz-Void Omni-System | Optimized for Infinix Smart 8</div>
+        <div class="footer">Rexz-Void Security Engine | Optimized for Infinix Smart 8</div>
     </div>
 
     <script>
-        // JS AREA
-        async function processDeob() {
+        async function smartDeob() {
             const input = document.getElementById("inputCode").value.trim();
             const output = document.getElementById("outputCode");
-            let targetCode = input;
+            let rawData = input;
 
-            if (!input) return alert("Input kosong, Raja!");
+            if (!input) return alert("Mana kodenya, Raja?");
 
-            // 1. Logic Fetch Link
+            // 1. FETCH LINK HANDLER
             if (input.startsWith("http")) {
-                output.value = "⚡ Membayangi Server... Menarik Data Raw...";
+                output.value = "⚡ Menarik data dari server...";
                 try {
                     const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`);
-                    const data = await res.json();
-                    targetCode = data.contents;
-                } catch (err) {
-                    output.value = "❌ GAGAL: Link tidak valid atau terblokir!";
-                    return;
+                    const json = await res.json();
+                    rawData = json.contents;
+                } catch (e) {
+                    output.value = "❌ Gagal narik link!"; return;
                 }
             }
 
-            // 2. Logic Deobfuscate Core
+            // 2. CORE DEOBFUSCATION LOGIC
             try {
-                let cleaned = targetCode
-                    .replace(/\\(\d{3})/g, (match, dec) => String.fromCharCode(parseInt(dec, 10))) // Decimal \054
-                    .replace(/\\x([0-9A-Fa-f]{2})/g, (match, hex) => String.fromCharCode(parseInt(hex, 16))) // Hex \x41
-                    .replace(/--\[\[.*?\]\]/gs, "-- [REXZ-VOID CLEANED]"); // Trash Cleaner
+                let cleaned = rawData
+                    // Unpack Decimal \054
+                    .replace(/\\(\d{1,3})/g, (match, dec) => String.fromCharCode(parseInt(dec, 10)))
+                    // Unpack Hex \x41
+                    .replace(/\\x([0-9A-Fa-f]{2})/g, (match, hex) => String.fromCharCode(parseInt(hex, 16)))
+                    // Cleanup XOR Logic blocks (Simulasi sederhana)
+                    .replace(/local v\d+\s*=\s*.*?;/g, (m) => "-- [VAR DEFINED]\n" + m)
+                    // Beautify: Kasih enter setelah semicolon biar gak numpuk
+                    .replace(/;/g, ";\n")
+                    // Trash Removal
+                    .replace(/--\[\[.*?\]\]/gs, "")
+                    .replace(/--\s*\[REXZ-VOID CLEANED\]/g, "");
 
-                output.value = cleaned;
+                // Tambahkan Header Identitas
+                output.value = "-- [[ DEOBFUSCATED BY REXZ-VOID SYSTEM ]]\n\n" + cleaned;
             } catch (err) {
                 output.value = "❌ ERROR: " + err.message;
             }
@@ -96,9 +105,9 @@
 
         function copyCode() {
             const output = document.getElementById("outputCode");
-            if (!output.value) return alert("Belum ada hasil!");
+            if (!output.value) return;
             navigator.clipboard.writeText(output.value);
-            alert("Berhasil disalin!");
+            alert("Hasil disalin!");
         }
     </script>
 </body>
