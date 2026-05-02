@@ -3,111 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REXZ-VOID | ADVANCED DEOB</title>
+    <title>REXZ-VOID | AUTO-CLEANER</title>
     <style>
         body {
-            background-color: #050505;
-            color: #00ff00;
+            background-color: #050505; color: #00ff00;
             font-family: 'Courier New', Courier, monospace;
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; margin: 0; padding: 15px;
         }
         .container {
-            width: 100%; max-width: 850px;
+            width: 100%; max-width: 900px;
             background: #0d0d0d; padding: 25px;
             border: 1px solid #1a1a1a; border-radius: 15px;
-            box-shadow: 0 0 40px rgba(0, 255, 0, 0.05);
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.1);
         }
-        h1 { text-align: center; font-size: 1.4rem; letter-spacing: 4px; color: #fff; text-shadow: 0 0 10px #00ff00; }
-        .box-label { font-size: 0.7rem; color: #555; margin-bottom: 5px; display: block; text-transform: uppercase; }
+        h1 { text-align: center; font-size: 1.5rem; letter-spacing: 5px; color: #fff; text-shadow: 0 0 10px #00ff00; margin-bottom: 20px; }
+        .label { font-size: 0.7rem; color: #666; margin-bottom: 5px; display: block; }
         textarea {
-            width: 100%; height: 200px;
+            width: 100%; height: 220px;
             background: #000; color: #00ff00;
             border: 1px solid #222; border-radius: 8px;
             padding: 12px; box-sizing: border-box;
             resize: none; font-size: 0.8rem; margin-bottom: 15px;
             outline: none; transition: 0.3s;
         }
-        textarea:focus { border-color: #00ff00; box-shadow: 0 0 10px rgba(0, 255, 0, 0.1); }
-        .actions { display: flex; gap: 12px; margin-bottom: 15px; }
+        textarea:focus { border-color: #00ff00; }
+        .btn-group { display: flex; gap: 10px; margin-bottom: 15px; }
         button {
-            flex: 1; padding: 16px;
+            flex: 1; padding: 15px;
             background: #00ff00; color: #000;
             border: none; border-radius: 6px;
             font-weight: bold; cursor: pointer; font-size: 0.9rem;
             text-transform: uppercase;
         }
-        button.secondary { background: #151515; color: #fff; border: 1px solid #333; }
-        button:hover { filter: brightness(1.2); }
-        .footer { font-size: 0.65rem; text-align: center; color: #444; margin-top: 15px; }
+        button.sec { background: #151515; color: #fff; border: 1px solid #333; }
+        button:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(0,255,0,0.3); }
+        .footer { font-size: 0.6rem; text-align: center; color: #444; margin-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>💀 REXZ-VOID OMNI DEOB</h1>
+        <h1>💀 REXZ-VOID CLEANER</h1>
         
-        <span class="box-label">Input (Paste Code or Raw Link)</span>
-        <textarea id="inputCode" placeholder="Paste script berantakan atau link raw di sini..."></textarea>
+        <span class="label">RAW OBFUSCATED CODE / LINK</span>
+        <textarea id="input" placeholder="Paste script v0, v1, v2 atau Link Raw..."></textarea>
         
-        <div class="actions">
-            <button onclick="smartDeob()">DEOBFUSCATE & CLEAN</button>
-            <button onclick="copyCode()" class="secondary">COPY RESULT</button>
+        <div class="btn-group">
+            <button onclick="reconstructCode()">CLEAN & RECONSTRUCT</button>
+            <button class="sec" onclick="copy()">COPY SCRIPT</button>
         </div>
 
-        <span class="box-label">Output (Readable Version)</span>
-        <textarea id="outputCode" placeholder="Hasil yang sudah bersih akan muncul di sini..." readonly></textarea>
+        <span class="label">CLEAN READABLE SCRIPT</span>
+        <textarea id="output" placeholder="Script siap pakai akan muncul di sini..." readonly></textarea>
         
-        <div class="footer">Rexz-Void Security Engine | Optimized for Infinix Smart 8</div>
+        <div class="footer">Rexz-Void Auto-Reconstructor | Vercel Deployment</div>
     </div>
 
     <script>
-        async function smartDeob() {
-            const input = document.getElementById("inputCode").value.trim();
-            const output = document.getElementById("outputCode");
-            let rawData = input;
+        async function reconstructCode() {
+            let input = document.getElementById("input").value.trim();
+            let output = document.getElementById("output");
+            let raw = input;
 
-            if (!input) return alert("Mana kodenya, Raja?");
+            if (!input) return alert("Input kosong!");
 
-            // 1. FETCH LINK HANDLER
             if (input.startsWith("http")) {
-                output.value = "⚡ Menarik data dari server...";
+                output.value = "-- [⚡] Fetching data...";
                 try {
                     const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`);
-                    const json = await res.json();
-                    rawData = json.contents;
-                } catch (e) {
-                    output.value = "❌ Gagal narik link!"; return;
-                }
+                    const data = await res.json();
+                    raw = data.contents;
+                } catch (e) { output.value = "❌ Fetch Error!"; return; }
             }
 
-            // 2. CORE DEOBFUSCATION LOGIC
             try {
-                let cleaned = rawData
-                    // Unpack Decimal \054
-                    .replace(/\\(\d{1,3})/g, (match, dec) => String.fromCharCode(parseInt(dec, 10)))
-                    // Unpack Hex \x41
-                    .replace(/\\x([0-9A-Fa-f]{2})/g, (match, hex) => String.fromCharCode(parseInt(hex, 16)))
-                    // Cleanup XOR Logic blocks (Simulasi sederhana)
-                    .replace(/local v\d+\s*=\s*.*?;/g, (m) => "-- [VAR DEFINED]\n" + m)
-                    // Beautify: Kasih enter setelah semicolon biar gak numpuk
-                    .replace(/;/g, ";\n")
-                    // Trash Removal
-                    .replace(/--\[\[.*?\]\]/gs, "")
-                    .replace(/--\s*\[REXZ-VOID CLEANED\]/g, "");
+                // 1. Unpack Strings (Hex & Dec)
+                let decoded = raw
+                    .replace(/\\(\d{1,3})/g, (m, d) => String.fromCharCode(parseInt(d, 10)))
+                    .replace(/\\x([0-9A-Fa-f]{2})/g, (m, h) => String.fromCharCode(parseInt(h, 16)));
 
-                // Tambahkan Header Identitas
-                output.value = "-- [[ DEOBFUSCATED BY REXZ-VOID SYSTEM ]]\n\n" + cleaned;
+                // 2. Variable Mapping (Mengubah v0, v1 menjadi nama aslinya)
+                const map = {
+                    "v0": "Char", "v1": "Byte", "v2": "Sub", "v8": "Players",
+                    "v9": "ReplicatedStorage", "v10": "LocalPlayer", "v11": "KavoLib",
+                    "v12": "MineDelay", "v18": "MineFolder", "v23": "MineRemote",
+                    "v21": "Queue", "v26": "AutoFarmActive"
+                };
+
+                let clean = decoded;
+                Object.keys(map).forEach(key => {
+                    let reg = new RegExp("\\b" + key + "\\b", "g");
+                    clean = clean.replace(reg, map[key]);
+                });
+
+                // 3. Reconstruct Header & Structure
+                let final = `-- [[ DEOBFUSCATED & RECONSTRUCTED BY REXZ-VOID ]] --\n`;
+                final += `-- Target: Mining Games (Auto-Farm & Ore Detector)\n\n`;
+                final += `local Players = game:GetService("Players")\n`;
+                final += `local ReplicatedStorage = game:GetService("ReplicatedStorage")\n`;
+                final += `local Workspace = game:GetService("Workspace")\n`;
+                final += `local LocalPlayer = Players.LocalPlayer\n\n`;
+                
+                // Menghapus baris-baris definisi variabel v0-v7 yang sudah tidak perlu
+                clean = clean.replace(/local v\d+\s*=\s*.*?;?\n/g, "");
+                clean = clean.replace(/-- \[VAR DEFINED\]\n/g, "");
+
+                final += clean;
+
+                output.value = final;
             } catch (err) {
-                output.value = "❌ ERROR: " + err.message;
+                output.value = "❌ Reconstruction Failed: " + err.message;
             }
         }
 
-        function copyCode() {
-            const output = document.getElementById("outputCode");
-            if (!output.value) return;
-            navigator.clipboard.writeText(output.value);
-            alert("Hasil disalin!");
+        function copy() {
+            const out = document.getElementById("output");
+            out.select();
+            document.execCommand("copy");
+            alert("Script Clean berhasil disalin!");
         }
     </script>
 </body>
