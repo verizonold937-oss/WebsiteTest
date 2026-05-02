@@ -46,31 +46,30 @@
 
         if (!input) return alert("Kodenya mana, Raja?");
 
-        // 1. URL Fetcher
         if (input.startsWith("http")) {
             output.value = "-- [⚡] Fetching Raw Content...";
             try {
                 const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`);
                 const json = await res.json();
                 raw = json.contents;
-            } catch (e) { output.value = "❌ Gagal narik link!"; return; }
+            } catch (e) { 
+                output.value = "❌ Gagal narik link!"; 
+                return; 
+            }
         }
 
         try {
-            // 2. Decode String (Hex & Decimal)
             let decoded = raw
                 .replace(/\\(\d{1,3})/g, (m, d) => String.fromCharCode(parseInt(d, 10)))
                 .replace(/\\x([0-9A-Fa-f]{2})/g, (m, h) => String.fromCharCode(parseInt(h, 16)));
 
-            // 3. Remove Junk & Obfuscator Signatures
             let clean = decoded
-                .replace(/--\[\[[\s\S]*?\]\]--/g, "") // Hapus banner Ferib
-                .replace(/local v\d+\s*=\s*.*?;?\n/g, "") // Hapus definisi v0-v99
-                .replace(/-- \[VAR DEFINED\]\n/g, "") // Hapus tag cleaner lama
-                .replace(/while true do if \(\d+==\d+\) then/g, "") // Hapus flatten control flow
-                .replace(/break;? end end/g, ""); // Hapus sisa-sisa loop palsu
+                .replace(/--\[\[[\s\S]*?\]\]--/g, "")
+                .replace(/local v\d+\s*=\s*.*?;?\n/g, "")
+                .replace(/-- \[VAR DEFINED\]\n/g, "")
+                .replace(/while true do if \(\d+==\d+\) then/g, "")
+                .replace(/break;? end end/g, "");
 
-            // 4. Map Variables to Human Names (Smart Mapping)
             const map = {
                 "v8": "Players", "v9": "ReplicatedStorage", "v10": "LocalPlayer",
                 "v11": "KavoLib", "v18": "MineFolder", "v23": "MineRemote",
@@ -82,7 +81,6 @@
                 clean = clean.replace(reg, map[key]);
             });
 
-            // 5. Build Final Template
             let finalScript = `-- [[ DEOBFUSCATED & RECONSTRUCTED BY REXZ-VOID ]] --\n`;
             finalScript += `-- Target: Global (ESP & Auto-Farm System)\n\n`;
             finalScript += `local Players = game:GetService("Players")\n`;
