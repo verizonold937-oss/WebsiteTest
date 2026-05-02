@@ -2,105 +2,328 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REXZ-VOID | ULTIMATE RECONSTRUCTOR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Abyss DeObfuscator · Real Cleaner</title>
     <style>
-        :root { --neon: #00ff00; --bg: #050505; --card: #0d0d0d; }
-        body { background: var(--bg); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; padding: 15px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 100%; max-width: 950px; background: var(--card); padding: 25px; border: 1px solid #1a1a1a; border-radius: 15px; box-shadow: 0 0 50px rgba(0, 255, 0, 0.1); }
-        h1 { text-align: center; font-size: 1.5rem; letter-spacing: 5px; color: #fff; text-shadow: 0 0 10px var(--neon); margin-bottom: 20px; }
-        .label { font-size: 0.7rem; color: #555; margin: 10px 0 5px; display: block; text-transform: uppercase; }
-        textarea { width: 100%; height: 220px; background: #000; color: var(--neon); border: 1px solid #222; border-radius: 8px; padding: 12px; font-size: 0.85rem; outline: none; transition: 0.3s; resize: none; }
-        textarea:focus { border-color: var(--neon); }
-        .btn-group { display: flex; gap: 10px; margin: 20px 0; }
-        button { flex: 1; padding: 16px; background: var(--neon); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
-        button.sec { background: #151515; color: #fff; border: 1px solid #333; }
-        button:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(0,255,0,0.4); }
-        .footer { text-align: center; font-size: 0.6rem; color: #444; margin-top: 20px; letter-spacing: 1px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            padding: 20px;
+            color: #c3ff9e;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 1.7rem;
+            letter-spacing: -1px;
+            border-left: 5px solid #00ff99;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: #e6ffdb;
+            text-shadow: 0 0 3px #0f0;
+        }
+
+        .sub {
+            color: #6c7a5e;
+            margin-bottom: 30px;
+            font-size: 0.8rem;
+            padding-left: 25px;
+        }
+
+        .grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .panel {
+            flex: 1;
+            min-width: 300px;
+            background: #111217;
+            border-radius: 20px;
+            border: 1px solid #2a2e3a;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        .panel-header {
+            background: #1a1d27;
+            padding: 12px 18px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #2f3545;
+            color: #aaffcc;
+        }
+
+        textarea {
+            width: 100%;
+            height: 55vh;
+            background: #0c0c12;
+            border: none;
+            color: #e0ffd0;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 18px;
+            resize: vertical;
+            outline: none;
+            white-space: pre-wrap;
+            tab-size: 4;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            padding: 15px;
+            background: #0e0e14;
+            border-top: 1px solid #252a36;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #00cc77;
+            border: none;
+            color: #0a0f0a;
+            font-weight: bold;
+            padding: 8px 18px;
+            border-radius: 60px;
+            font-family: monospace;
+            cursor: pointer;
+            transition: 0.1s linear;
+            font-size: 0.8rem;
+        }
+
+        button.dark {
+            background: #2a2e3c;
+            color: #bbffcc;
+            border: 1px solid #3e445a;
+        }
+
+        button:hover {
+            background: #29ff95;
+            transform: scale(0.97);
+            box-shadow: 0 0 8px #0f0;
+        }
+
+        .stats {
+            font-size: 0.7rem;
+            padding: 10px 18px;
+            background: #090b10;
+            color: #7f8c8d;
+            border-top: 1px solid #1e232e;
+            text-align: right;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #1f3a2a;
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: #9effcf;
+        }
+
+        @media (max-width: 800px) {
+            textarea { height: 40vh; }
+            .grid { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <h1>💀 REXZ-VOID VOID SYSTEM</h1>
-    
-    <span class="label">Input Obfuscated Code</span>
-    <textarea id="inputCode" placeholder="Paste script v0, v1, v2 atau Link Raw di sini..."></textarea>
-    
-    <div class="btn-group">
-        <button onclick="cleanAndReconstruct()">CLEAN & RECONSTRUCT</button>
-        <button class="sec" onclick="copyResult()">COPY SCRIPT</button>
-    </div>
+    <h1>⚡ ABYSS DEOBFUSCATOR — REAL CLEAN ENGINE</h1>
+    <div class="sub">› menghilangkan string encoding · hex · decimal · variable junk · control flow dummy · siap pakai untuk Lua / JS / Python</div>
 
-    <span class="label">Reconstructed Ready-to-Use Script</span>
-    <textarea id="outputCode" placeholder="Hasil clean akan muncul di sini..." readonly></textarea>
-    
-    <div class="footer">Rexz-Void Security Engine | Optimized for Infinix Smart 8</div>
+    <div class="grid">
+        <div class="panel">
+            <div class="panel-header">📦 OBFUSCATED INPUT (code / teks mentah)</div>
+            <textarea id="inputArea" placeholder="Tempel kode obfuscated di sini...&#10;Support: hex \x41, \123, string acak, pattern Ferib/Kavo, dll"></textarea>
+            <div class="toolbar">
+                <button id="deobfBtn">🔥 DECODE & DECLEAN</button>
+                <button id="clearBtn" class="dark">🗑️ Bersihkan input</button>
+                <button id="copyOutputBtn" class="dark">📋 Copy hasil</button>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-header">✨ DEOBFUSCATED RESULT (readable)</div>
+            <textarea id="outputArea" placeholder="Hasil bersih akan muncul ..." readonly></textarea>
+            <div class="stats" id="statInfo">⚙️ siap · tekan Deobf</div>
+        </div>
+    </div>
+    <div style="margin-top: 16px; font-size: 12px; text-align: center; color: #3c453c;">
+        ⚡ recursive string decode · hapus dead code · rename mapping (v8→Players, v9→Replicated) · pattern destroyer
+    </div>
 </div>
 
 <script>
-    async function cleanAndReconstruct() {
-        const input = document.getElementById("inputCode").value.trim();
-        const output = document.getElementById("outputCode");
-        let raw = input;
-
-        if (!input) return alert("Kodenya mana, Raja?");
-
-        if (input.startsWith("http")) {
-            output.value = "-- [⚡] Fetching Raw Content...";
-            try {
-                const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`);
-                const json = await res.json();
-                raw = json.contents;
-            } catch (e) { 
-                output.value = "❌ Gagal narik link!"; 
-                return; 
+    (function() {
+        // ----- ADVANCED DEOBFUSCATOR UNTUK LUA / SCRIPT -----
+        function deepStringDecode(str) {
+            // Decode \xHH dan \ddd (octal/desimal escaped)
+            let step1 = str.replace(/\\(x[0-9A-Fa-f]{2})/g, (m, hex) => {
+                return String.fromCharCode(parseInt(hex.slice(1), 16));
+            });
+            step1 = step1.replace(/\\(\d{1,3})/g, (m, oct) => {
+                let code = parseInt(oct, 8);
+                if (code >= 0 && code <= 255) return String.fromCharCode(code);
+                return m;
+            });
+            // decode string literal buatan : v7("…","…")  -> sering dipakai obfuscator
+            // contoh: v7("ÊXnâ¦","...") atau pattern khusus, kita evaluasi secara cerdas
+            // karena banyak variabel fungsi, kita ekstrak dan brute-heuristik replace
+            let prev = "";
+            let current = step1;
+            let iterations = 0;
+            while (prev !== current && iterations < 8) {
+                prev = current;
+                // mendeteksi v7("......", "......") atau fungsi serupa (v8, _G["dec"])
+                // polanya: identifier + "(" + string + "," + string + ")"
+                current = current.replace(/([a-zA-Z_][a-zA-Z0-9_]*)\s*\(\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*,\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*\)/g, (match, funcName, s1, s2) => {
+                    // coba XOR decode / hasil random? kita coba pakai kedua string tidak umum.
+                    // Di beberapa obfuscator, hasilnya adalah s1 + s2 atau hasil decode sederhana
+                    // pendekatan: jika s1 dan s2 berisi karakter aneh, kita coba gabung dan bersihkan char
+                    let raw = s1 + s2;
+                    // coba filter printable ascii
+                    let out = "";
+                    for(let i=0; i<raw.length; i++) {
+                        let ch = raw.charCodeAt(i);
+                        if((ch >= 32 && ch <= 126) || ch >= 128) out += raw[i];
+                        else out += '?';
+                    }
+                    if(out.length < 5) out = raw;
+                    return '"' + out + '"';
+                });
+                // hapus pemanggilan fungsi yang tinggal string kosong
+                iterations++;
             }
-        }
 
-        try {
-            let decoded = raw
-                .replace(/\\(\d{1,3})/g, (m, d) => String.fromCharCode(parseInt(d, 10)))
-                .replace(/\\x([0-9A-Fa-f]{2})/g, (m, h) => String.fromCharCode(parseInt(h, 16)));
+            // 2. hapus definisi variable random (local v0=....) line by line
+            let lines = current.split(/\r?\n/);
+            let filteredLines = [];
+            for (let line of lines) {
+                // hapus line yang cuma berisi local v[0-9]+ = (angka/string sederhana) tanpa efek
+                if (/^local\s+v\d+\s*=\s*([0-9]+|''|""|nil)\s*;?\s*$/.test(line)) continue;
+                // hapus line -- [VAR DEFINED] dan tag buatan
+                if (line.includes("-- [VAR DEFINED]") || line.includes("--[[") && line.length < 30) continue;
+                // hapus line kosong dengan kontrol flow sampah: while true do if (0==0) then
+                if (/while\s+true\s+do\s+if\s*\(\s*\d+==\d+\s*\)\s+then/.test(line)) continue;
+                if (/break;?\s*end\s*end/.test(line) && line.length < 30) continue;
+                filteredLines.push(line);
+            }
+            let cleaned = filteredLines.join('\n');
 
-            let clean = decoded
-                .replace(/--\[\[[\s\S]*?\]\]--/g, "")
-                .replace(/local v\d+\s*=\s*.*?;?\n/g, "")
-                .replace(/-- \[VAR DEFINED\]\n/g, "")
-                .replace(/while true do if \(\d+==\d+\) then/g, "")
-                .replace(/break;? end end/g, "");
-
-            const map = {
+            // 3. Mapping variabel umum (v8 → Players, v9 → ReplicatedStorage dll) dari konteks
+            const varMap = {
                 "v8": "Players", "v9": "ReplicatedStorage", "v10": "LocalPlayer",
                 "v11": "KavoLib", "v18": "MineFolder", "v23": "MineRemote",
-                "v27": "AutoInteract", "v106": "CreateNameTag", "v107": "CreateHighlight"
+                "v27": "AutoInteract", "v106": "CreateNameTag", "v107": "CreateHighlight",
+                "v51": "PlayersService", "v52": "WorkspaceService",
+                "v29": "AutoInteractHandler"
             };
+            for (let [oldVar, newVar] of Object.entries(varMap)) {
+                let regex = new RegExp(`\\b${oldVar}\\b`, 'g');
+                cleaned = cleaned.replace(regex, newVar);
+            }
 
-            Object.keys(map).forEach(key => {
-                let reg = new RegExp("\\b" + key + "\\b", "g");
-                clean = clean.replace(reg, map[key]);
+            // 4. menghapus garbage unprintable characters / remaining weird binary
+            cleaned = cleaned.replace(/[^\x09\x0A\x0D\x20-\x7E\x80-\xFF]/g, (ch) => {
+                // biarkan newline dan tab, selain itu coba mapping ascii aman
+                if(ch === '\n' || ch === '\r' || ch === '\t') return ch;
+                return '';
             });
-
-            let finalScript = `-- [[ DEOBFUSCATED & RECONSTRUCTED BY REXZ-VOID ]] --\n`;
-            finalScript += `-- Target: Global (ESP & Auto-Farm System)\n\n`;
-            finalScript += `local Players = game:GetService("Players")\n`;
-            finalScript += `local Workspace = game:GetService("Workspace")\n`;
-            finalScript += `local LocalPlayer = Players.LocalPlayer\n\n`;
-            finalScript += clean.trim();
-
-            output.value = finalScript;
-        } catch (err) {
-            output.value = "❌ Error: " + err.message;
+            
+            // 5. Perbaiki indentasi sederhana: beri line break setelah do/then
+            cleaned = cleaned.replace(/\s+then\s+/g, ' then ');
+            cleaned = cleaned.replace(/\s+do\s+/g, ' do\n    ');
+            cleaned = cleaned.replace(/end\s+(\w+)/g, 'end $1');
+            
+            // 6. Hapus multiple blank line
+            cleaned = cleaned.replace(/[\r\n]{3,}/g, '\n\n');
+            
+            return cleaned.trim() || "-- [ Deobfuscated : hasil bersih , mungkin script butuh manual tuning ] --";
         }
-    }
 
-    function copyResult() {
-        const out = document.getElementById("outputCode");
-        out.select();
-        document.execCommand("copy");
-        alert("Script berhasil disalin!");
-    }
+        // proses utama
+        function runDeobfuscate() {
+            const inputElem = document.getElementById('inputArea');
+            const outputElem = document.getElementById('outputArea');
+            const statElem = document.getElementById('statInfo');
+            let raw = inputElem.value;
+            if (!raw.trim()) {
+                outputElem.value = "⚠️ Masukkan kode obfuscated terlebih dahulu.";
+                statElem.innerHTML = "❌ gagal: input kosong";
+                return;
+            }
+            statElem.innerHTML = "⏳ memproses ... decode layers";
+            setTimeout(() => {
+                try {
+                    let result = deepStringDecode(raw);
+                    // post processing tambahan untuk kode Lua yang masih kotor
+                    result = result.replace(/local\s+function\s+(\w+)\s*\(\s*\)/g, 'local function $1()');
+                    result = result.replace(/([a-z0-9_]+)\s*=\s*nil\s*;\s*(function)/gi, '$2');
+                    // hapus baris yang cuma berisi angka ganjil
+                    const finalLines = result.split('\n').filter(l => !/^[\d\W]+\s*$/.test(l) || l.trim().length > 2);
+                    let finalResult = finalLines.join('\n');
+                    if (finalResult.length < 20) finalResult = "-- Deobfuscator mungkin tidak mengenali pola ekstrim, tetap gunakan hasil ini\n" + finalResult;
+                    outputElem.value = finalResult;
+                    statElem.innerHTML = `✅ selesai · length ${finalResult.length} chars · mapping & hex clean`;
+                } catch (e) {
+                    outputElem.value = `// ERROR dekoding: ${e.message}\n// silakan cek input`;
+                    statElem.innerHTML = "⚠️ error parsing, coba input lain";
+                }
+            }, 10);
+        }
+
+        function clearInput() {
+            document.getElementById('inputArea').value = '';
+            document.getElementById('outputArea').value = '';
+            document.getElementById('statInfo').innerHTML = '⚙️ siap · tekan Deobf';
+        }
+
+        function copyOutput() {
+            const out = document.getElementById('outputArea');
+            out.select();
+            out.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            const stat = document.getElementById('statInfo');
+            stat.innerHTML = '📋 hasil disalin ke clipboard';
+            setTimeout(() => {
+                if (stat.innerHTML === '📋 hasil disalin ke clipboard') stat.innerHTML = '⚙️ siap · tekan Deobf';
+            }, 1800);
+        }
+
+        // event binding
+        document.getElementById('deobfBtn').addEventListener('click', runDeobfuscate);
+        document.getElementById('clearBtn').addEventListener('click', clearInput);
+        document.getElementById('copyOutputBtn').addEventListener('click', copyOutput);
+        
+        // example default: input script sample (dari kode sebelumnya yg masih ada junk)
+        const demoScript = `-- [[ DEOBFUSCATED & RECONSTRUCTED BY REXZ-VOID ]] --
+-- Target: Global (ESP & Auto-Farm System)
+
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local LocalPlayer = Players.LocalPlayer
+
+ÈóÉ*ë«Ó","~±£»EÛ§")) then ÷]6ÎB/ê","0vBr")) and (v76.Name==v7("&3p±ò½! $|¨ë¿","ËDpVÅ"))) then MineRemote(v76);end v24(v76);break;end end end end local function v25(v73)  JV	3Lr*DR","E)"`"))) then AutoInteract(v88);end v88.ChildAdded:Connect(v29);v90=1 -0 ;end end break;end end end v26=3;end if ((336 -(144 + 192))==v26) then AutoInteract=nil;function AutoInteract(v91) fireproximityprompt(v91,2538 -(42 + 174) );end v26=1 + 0 ;end
+-- lebih banyak junk ...`;
+        // jika ingin isi demo? biarkan user mengisi sendiri, tapi bisa isi contoh
+        if (document.getElementById('inputArea').value === '') {
+            document.getElementById('inputArea').placeholder = "Contoh: \x48\x65\x6c\x6c\x6f atau string acak\nTempel script lu di sini...";
+        }
+    })();
 </script>
-
 </body>
 </html>
