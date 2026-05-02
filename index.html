@@ -3,126 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REXZ-VOID | AUTO-CLEANER</title>
+    <title>REXZ-VOID | ULTIMATE RECONSTRUCTOR</title>
     <style>
-        body {
-            background-color: #050505; color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0; padding: 15px;
-        }
-        .container {
-            width: 100%; max-width: 900px;
-            background: #0d0d0d; padding: 25px;
-            border: 1px solid #1a1a1a; border-radius: 15px;
-            box-shadow: 0 0 40px rgba(0, 255, 0, 0.1);
-        }
-        h1 { text-align: center; font-size: 1.5rem; letter-spacing: 5px; color: #fff; text-shadow: 0 0 10px #00ff00; margin-bottom: 20px; }
-        .label { font-size: 0.7rem; color: #666; margin-bottom: 5px; display: block; }
-        textarea {
-            width: 100%; height: 220px;
-            background: #000; color: #00ff00;
-            border: 1px solid #222; border-radius: 8px;
-            padding: 12px; box-sizing: border-box;
-            resize: none; font-size: 0.8rem; margin-bottom: 15px;
-            outline: none; transition: 0.3s;
-        }
-        textarea:focus { border-color: #00ff00; }
-        .btn-group { display: flex; gap: 10px; margin-bottom: 15px; }
-        button {
-            flex: 1; padding: 15px;
-            background: #00ff00; color: #000;
-            border: none; border-radius: 6px;
-            font-weight: bold; cursor: pointer; font-size: 0.9rem;
-            text-transform: uppercase;
-        }
+        :root { --neon: #00ff00; --bg: #050505; --card: #0d0d0d; }
+        body { background: var(--bg); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; padding: 15px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 950px; background: var(--card); padding: 25px; border: 1px solid #1a1a1a; border-radius: 15px; box-shadow: 0 0 50px rgba(0, 255, 0, 0.1); }
+        h1 { text-align: center; font-size: 1.5rem; letter-spacing: 5px; color: #fff; text-shadow: 0 0 10px var(--neon); margin-bottom: 20px; }
+        .label { font-size: 0.7rem; color: #555; margin: 10px 0 5px; display: block; text-transform: uppercase; }
+        textarea { width: 100%; height: 220px; background: #000; color: var(--neon); border: 1px solid #222; border-radius: 8px; padding: 12px; font-size: 0.85rem; outline: none; transition: 0.3s; resize: none; }
+        textarea:focus { border-color: var(--neon); }
+        .btn-group { display: flex; gap: 10px; margin: 20px 0; }
+        button { flex: 1; padding: 16px; background: var(--neon); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
         button.sec { background: #151515; color: #fff; border: 1px solid #333; }
-        button:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(0,255,0,0.3); }
-        .footer { font-size: 0.6rem; text-align: center; color: #444; margin-top: 15px; }
+        button:hover { filter: brightness(1.2); box-shadow: 0 0 15px rgba(0,255,0,0.4); }
+        .footer { text-align: center; font-size: 0.6rem; color: #444; margin-top: 20px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>💀 REXZ-VOID CLEANER</h1>
-        
-        <span class="label">RAW OBFUSCATED CODE / LINK</span>
-        <textarea id="input" placeholder="Paste script v0, v1, v2 atau Link Raw..."></textarea>
-        
-        <div class="btn-group">
-            <button onclick="reconstructCode()">CLEAN & RECONSTRUCT</button>
-            <button class="sec" onclick="copy()">COPY SCRIPT</button>
-        </div>
-
-        <span class="label">CLEAN READABLE SCRIPT</span>
-        <textarea id="output" placeholder="Script siap pakai akan muncul di sini..." readonly></textarea>
-        
-        <div class="footer">Rexz-Void Auto-Reconstructor | Vercel Deployment</div>
+<div class="container">
+    <h1>💀 REXZ-VOID OMNI SYSTEM</h1>
+    
+    <span class="label">Input Obfuscated Code</span>
+    <textarea id="inputCode" placeholder="Paste script v0, v1, v2 atau Link Raw di sini..."></textarea>
+    
+    <div class="btn-group">
+        <button onclick="cleanAndReconstruct()">CLEAN & RECONSTRUCT</button>
+        <button class="sec" onclick="copyResult()">COPY SCRIPT</button>
     </div>
 
-    <script>
-        async function reconstructCode() {
-            let input = document.getElementById("input").value.trim();
-            let output = document.getElementById("output");
-            let raw = input;
+    <span class="label">Reconstructed Ready-to-Use Script</span>
+    <textarea id="outputCode" placeholder="Hasil clean akan muncul di sini..." readonly></textarea>
+    
+    <div class="footer">Rexz-Void Security Engine | Optimized for Infinix Smart 8</div>
+</div>
 
-            if (!input) return alert("Input kosong!");
+<script>
+    async function cleanAndReconstruct() {
+        const input = document.getElementById("inputCode").value.trim();
+        const output = document.getElementById("outputCode");
+        let raw = input;
 
-            if (input.startsWith("http")) {
-                output.value = "-- [⚡] Fetching data...";
-                try {
-                    const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`);
-                    const data = await res.json();
-                    raw = data.contents;
-                } catch (e) { output.value = "❌ Fetch Error!"; return; }
-            }
+        if (!input) return alert("Kodenya mana, Raja?");
 
+        // 1. URL Fetcher
+        if (input.startsWith("http")) {
+            output.value = "-- [⚡] Fetching Raw Content...";
             try {
-                // 1. Unpack Strings (Hex & Dec)
-                let decoded = raw
-                    .replace(/\\(\d{1,3})/g, (m, d) => String.fromCharCode(parseInt(d, 10)))
-                    .replace(/\\x([0-9A-Fa-f]{2})/g, (m, h) => String.fromCharCode(parseInt(h, 16)));
-
-                // 2. Variable Mapping (Mengubah v0, v1 menjadi nama aslinya)
-                const map = {
-                    "v0": "Char", "v1": "Byte", "v2": "Sub", "v8": "Players",
-                    "v9": "ReplicatedStorage", "v10": "LocalPlayer", "v11": "KavoLib",
-                    "v12": "MineDelay", "v18": "MineFolder", "v23": "MineRemote",
-                    "v21": "Queue", "v26": "AutoFarmActive"
-                };
-
-                let clean = decoded;
-                Object.keys(map).forEach(key => {
-                    let reg = new RegExp("\\b" + key + "\\b", "g");
-                    clean = clean.replace(reg, map[key]);
-                });
-
-                // 3. Reconstruct Header & Structure
-                let final = `-- [[ DEOBFUSCATED & RECONSTRUCTED BY REXZ-VOID ]] --\n`;
-                final += `-- Target: Mining Games (Auto-Farm & Ore Detector)\n\n`;
-                final += `local Players = game:GetService("Players")\n`;
-                final += `local ReplicatedStorage = game:GetService("ReplicatedStorage")\n`;
-                final += `local Workspace = game:GetService("Workspace")\n`;
-                final += `local LocalPlayer = Players.LocalPlayer\n\n`;
-                
-                // Menghapus baris-baris definisi variabel v0-v7 yang sudah tidak perlu
-                clean = clean.replace(/local v\d+\s*=\s*.*?;?\n/g, "");
-                clean = clean.replace(/-- \[VAR DEFINED\]\n/g, "");
-
-                final += clean;
-
-                output.value = final;
-            } catch (err) {
-                output.value = "❌ Reconstruction Failed: " + err.message;
-            }
+                const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`);
+                const json = await res.json();
+                raw = json.contents;
+            } catch (e) { output.value = "❌ Gagal narik link!"; return; }
         }
 
-        function copy() {
-            const out = document.getElementById("output");
-            out.select();
-            document.execCommand("copy");
-            alert("Script Clean berhasil disalin!");
+        try {
+            // 2. Decode String (Hex & Decimal)
+            let decoded = raw
+                .replace(/\\(\d{1,3})/g, (m, d) => String.fromCharCode(parseInt(d, 10)))
+                .replace(/\\x([0-9A-Fa-f]{2})/g, (m, h) => String.fromCharCode(parseInt(h, 16)));
+
+            // 3. Remove Junk & Obfuscator Signatures
+            let clean = decoded
+                .replace(/--\[\[[\s\S]*?\]\]--/g, "") // Hapus banner Ferib
+                .replace(/local v\d+\s*=\s*.*?;?\n/g, "") // Hapus definisi v0-v99
+                .replace(/-- \[VAR DEFINED\]\n/g, "") // Hapus tag cleaner lama
+                .replace(/while true do if \(\d+==\d+\) then/g, "") // Hapus flatten control flow
+                .replace(/break;? end end/g, ""); // Hapus sisa-sisa loop palsu
+
+            // 4. Map Variables to Human Names (Smart Mapping)
+            const map = {
+                "v8": "Players", "v9": "ReplicatedStorage", "v10": "LocalPlayer",
+                "v11": "KavoLib", "v18": "MineFolder", "v23": "MineRemote",
+                "v27": "AutoInteract", "v106": "CreateNameTag", "v107": "CreateHighlight"
+            };
+
+            Object.keys(map).forEach(key => {
+                let reg = new RegExp("\\b" + key + "\\b", "g");
+                clean = clean.replace(reg, map[key]);
+            });
+
+            // 5. Build Final Template
+            let finalScript = `-- [[ DEOBFUSCATED & RECONSTRUCTED BY REXZ-VOID ]] --\n`;
+            finalScript += `-- Target: Global (ESP & Auto-Farm System)\n\n`;
+            finalScript += `local Players = game:GetService("Players")\n`;
+            finalScript += `local Workspace = game:GetService("Workspace")\n`;
+            finalScript += `local LocalPlayer = Players.LocalPlayer\n\n`;
+            finalScript += clean.trim();
+
+            output.value = finalScript;
+        } catch (err) {
+            output.value = "❌ Error: " + err.message;
         }
-    </script>
+    }
+
+    function copyResult() {
+        const out = document.getElementById("outputCode");
+        out.select();
+        document.execCommand("copy");
+        alert("Script berhasil disalin!");
+    }
+</script>
+
 </body>
 </html>
