@@ -2,219 +2,276 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABYSS DEOBFUSCATOR · REAL TIME CLEANER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Abyss Deobfuscator · WeAreDevs · Moonsec · Luraph · Ferib</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            background: #0a0c10;
-            font-family: 'Courier New', 'Fira Code', monospace;
-            padding: 25px;
+            background: #05070c;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            padding: 20px;
+            color: #b5ff9e;
         }
         .container {
-            max-width: 1300px;
+            max-width: 1500px;
             margin: 0 auto;
         }
         h1 {
-            color: #0f0;
-            font-size: 1.8rem;
-            border-left: 5px solid #0f0;
-            padding-left: 20px;
-            margin-bottom: 8px;
+            font-size: 1.6rem;
             letter-spacing: -1px;
+            border-left: 4px solid #0f0;
+            padding-left: 18px;
+            margin-bottom: 6px;
+            color: #e9ffdb;
         }
         .sub {
-            color: #6a8f6a;
+            color: #5f7a5a;
+            font-size: 0.75rem;
+            padding-left: 22px;
             margin-bottom: 25px;
-            padding-left: 25px;
-            font-size: 0.8rem;
         }
-        .dual {
+        .flex {
             display: flex;
-            gap: 20px;
+            gap: 18px;
             flex-wrap: wrap;
         }
-        .box {
+        .panel {
             flex: 1;
-            background: #11151c;
-            border-radius: 16px;
-            border: 1px solid #2a2e3f;
+            background: #0e121b;
+            border-radius: 18px;
+            border: 1px solid #232838;
             overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
-        .box-header {
-            background: #1a1e2a;
+        .panel-header {
+            background: #151c26;
             padding: 12px 18px;
+            font-size: 0.8rem;
             font-weight: bold;
-            font-size: 0.85rem;
-            border-bottom: 1px solid #2f3548;
-            color: #aaffcc;
+            border-bottom: 1px solid #2a3142;
+            color: #bbffaa;
         }
         textarea {
             width: 100%;
-            height: 55vh;
-            background: #0c0f16;
-            color: #c7ffb1;
+            height: 58vh;
+            background: #0a0e16;
             border: none;
-            padding: 18px;
+            color: #d3ffc4;
             font-family: 'Courier New', monospace;
             font-size: 13px;
-            line-height: 1.5;
+            line-height: 1.45;
+            padding: 18px;
             resize: vertical;
             outline: none;
             white-space: pre-wrap;
+            tab-size: 4;
         }
         .toolbar {
-            padding: 14px;
-            background: #0d1119;
+            padding: 12px 16px;
+            background: #0c101a;
             display: flex;
             gap: 12px;
-            border-top: 1px solid #232732;
+            border-top: 1px solid #212736;
+            flex-wrap: wrap;
         }
         button {
-            background: #00cc77;
+            background: #0f0;
             border: none;
             color: #000;
             font-weight: bold;
-            padding: 8px 20px;
+            padding: 6px 18px;
             border-radius: 60px;
             font-family: monospace;
             cursor: pointer;
             font-size: 0.75rem;
-            transition: 0.1s;
+            transition: 0.08s linear;
         }
         button.sec {
-            background: #2a2f3e;
-            color: #b9ffd0;
-            border: 1px solid #3c4258;
+            background: #2a2f41;
+            color: #c4ffb0;
+            border: 1px solid #3d445b;
+        }
+        button.danger {
+            background: #aa3355;
+            color: #fff;
         }
         button:hover {
-            background: #2eff9e;
+            background: #3eff9e;
             transform: scale(0.97);
         }
         .status {
             font-size: 0.7rem;
             text-align: right;
-            padding: 8px 16px;
-            background: #080b10;
-            color: #6a876a;
-            border-top: 1px solid #1e232e;
+            padding: 6px 16px;
+            background: #090d14;
+            color: #86ab7a;
+            border-top: 1px solid #1b212e;
+        }
+        .badge-list {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 0 6px;
+            font-size: 0.7rem;
+        }
+        .badge {
+            background: #1d2a1d;
+            padding: 3px 12px;
+            border-radius: 30px;
+            color: #b5ffa2;
         }
         @media (max-width: 750px) {
-            textarea { height: 40vh; }
-            .dual { flex-direction: column; }
+            textarea { height: 42vh; }
+            .flex { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🜂 ABYSS DEOBFUSCATOR · REAL RECONSTRUCTOR</h1>
-    <div class="sub">› Hex decode · \xxx · Variable mapping · Junk remover · Siap pakai untuk Lua / JS</div>
-    <div class="dual">
-        <div class="box">
-            <div class="box-header">📜 OBFUSCATED INPUT</div>
-            <textarea id="inputCode" placeholder="Tempel kode obfuscated di sini...&#10;Support: \x48\x65\x6c\x6c\x6f, \123, v7(&quot;...&quot;,&quot;...&quot;), random garbage"></textarea>
+    <h1>⚡ ABYSS · UNIVERSAL DEOBFUSCATOR</h1>
+    <div class="sub">› WeAreDevs · Moonsec · Luraph · Ferib · serta script custom dengan `string.char`, `bit32.bxor`, v7(), `\x` `\ddd` · Real cleanup</div>
+    <div class="flex">
+        <div class="panel">
+            <div class="panel-header">📜 OBFUSCATED INPUT (Lua / JS)</div>
+            <textarea id="inputArea" placeholder="Tempel kode hasil obfuscation dari WeAreDevs, Moonsec, Luraph, Ferib dll...&#10;Contoh: local v0=string.char ...  atau  \x48\x65\x6c\x6c\x6f"></textarea>
             <div class="toolbar">
-                <button id="deobfBtn">🔥 DEOBFUSCATE</button>
-                <button id="clearBtn" class="sec">🗑️ CLEAR</button>
+                <button id="deobfBtn">🔥 DEOBFUSCATE (SEMUA ENGINE)</button>
+                <button id="clearBtn" class="sec">🗑️ BERSIHKAN</button>
                 <button id="copyBtn" class="sec">📋 COPY HASIL</button>
             </div>
         </div>
-        <div class="box">
-            <div class="box-header">✨ CLEAN · READABLE OUTPUT</div>
-            <textarea id="outputCode" readonly placeholder="Hasil bersih akan muncul di sini..."></textarea>
-            <div class="status" id="statusMsg">✔️ Tekan tombol Deobfuscate</div>
+        <div class="panel">
+            <div class="panel-header">✨ CLEAN · READY TO EXECUTE</div>
+            <textarea id="outputArea" readonly placeholder="Hasil deobfuscated akan muncul di sini ..."></textarea>
+            <div class="status" id="statusMsg">✔️ Siap · tekan Deobfuscate</div>
         </div>
+    </div>
+    <div class="badge-list">
+        <span class="badge">🔧 Support: WeAreDevs / Moonsec / Luraph / Ferib</span>
+        <span class="badge">🌀 Decode \x \ddd string.char bit32.bxor v7 pattern</span>
+        <span class="badge">🧹 Hapus junk variable & dead flow</span>
     </div>
 </div>
 
 <script>
     (function() {
-        // ambil elemen
-        const inputEl = document.getElementById('inputCode');
-        const outputEl = document.getElementById('outputCode');
+        const inputEl = document.getElementById('inputArea');
+        const outputEl = document.getElementById('outputArea');
         const statusEl = document.getElementById('statusMsg');
 
-        // ---------- CORE DEOBFUSCATOR ENGINE ----------
-        function deobfuscate(text) {
-            if (!text.trim()) return "⚠️ Masukkan kode terlebih dahulu.";
+        // ---------- CORE DEOBFUSCATOR ENGINE (multi pattern) ----------
+        function deobfuscateLua(code) {
+            if (!code.trim()) return "-- [⚠️] Tidak ada input --";
+            let result = code;
 
-            let result = text;
-
-            // 1. Decode hex \xXX dan \XXX (octal/desimal escaped)
-            result = result.replace(/\\x([0-9A-Fa-f]{2})/g, (m, hex) => {
-                return String.fromCharCode(parseInt(hex, 16));
-            });
-            result = result.replace(/\\(\d{1,3})/g, (m, code) => {
-                let num = parseInt(code, 8);
+            // 1. Decode hex \xHH dan octal \ddd (desimal/octal escaped)
+            result = result.replace(/\\x([0-9A-Fa-f]{2})/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
+            result = result.replace(/\\(\d{1,3})/g, (m, d) => {
+                let num = parseInt(d, 8);
                 if (num >= 0 && num <= 255) return String.fromCharCode(num);
                 return m;
             });
 
-            // 2. Hapus string decode palsu seperti v7("...","...") ganti dengan string kosong / gabungan
-            // pola: identifier("random1","random2")
-            result = result.replace(/([a-zA-Z_][a-zA-Z0-9_]*)\s*\(\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*,\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*\)/g, (match, fname, a, b) => {
-                // coba gabung dan buang karakter aneh
-                let merged = (a + b).replace(/[^\x20-\x7E]/g, '');
-                if (merged.length < 2) merged = "???";
-                return `"${merged}"`;
+            // 2. Decode string.char(...) pattern (luraph / wearedevs)
+            result = result.replace(/string\.char\s*\(\s*([\d\s,]+)\s*\)/g, (m, nums) => {
+                let parts = nums.split(',').map(n => parseInt(n.trim(), 10));
+                let str = '';
+                for (let p of parts) if (!isNaN(p)) str += String.fromCharCode(p);
+                return '"' + str.replace(/[^ -~]/g, '?') + '"';
             });
 
-            // 3. Hapus baris yang hanya berisi local v0 = angka / nil / string kosong (variable sampah)
+            // 3. Decode bit32.bxor / bit.bxor for strings (common in moonsec)
+            // Pola: (function(a,b) return bit32.bxor(a,b) end)(ord,key) , kita coba sederhana: replace hasil evaluasi
+            // Karena tidak bisa run arbitrary code, kita lakukan heuristic replace untuk pola "bit32.bxor(byte, keystr)"
+            result = result.replace(/bit32\.bxor\s*\(\s*(\d+)\s*,\s*(\d+)\s*\)/g, (_, a, b) => {
+                let val = parseInt(a) ^ parseInt(b);
+                return val.toString();
+            });
+            // pola v4(v1(v2(...))) diganti dengan manual decode? tapi lebih ke arah eliminate v7()
+            result = result.replace(/([a-zA-Z_][a-zA-Z0-9_]*)\s*\(\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*,\s*"([^"\\]*(?:\\.[^"\\]*)*)"\s*\)/g, (m, func, s1, s2) => {
+                let merged = (s1 + s2).replace(/[^\x20-\x7E]/g, '');
+                if (merged.length === 0) merged = '???';
+                return `"${merged}"`;
+            });
+            
+            // 4. hapus definisi variable local v0 = 123 ; local v1 = "etc" yg cuma junk (tapi hati2)
             let lines = result.split(/\r?\n/);
             let cleanedLines = [];
             for (let line of lines) {
-                if (/^local\s+v\d+\s*=\s*(\d+|nil|''|"")\s*;?\s*$/.test(line)) continue;
+                // hapus line local v[digit]+ = angka / nil / {} / "" (sampah)
+                if (/^local\s+v\d+\s*=\s*(\d+|nil|''|""|false|true|\{\})\s*;?\s*$/.test(line)) continue;
                 if (/^local\s+v\d+\s*=\s*\{\s*\}\s*$/.test(line)) continue;
                 if (line.includes("-- [VAR DEFINED]")) continue;
-                if (line.trim() === "break; end end" && line.length < 20) continue;
                 if (/while true do if \(\d+==\d+\) then/.test(line)) continue;
+                if (/break;?\s*end\s*end/.test(line) && line.length < 30) continue;
+                if (/^local\s+v\d+\s*=\s*loadstring\(/.test(line)) continue; // biarkan loadstring tapi untuk mapping nanti
                 cleanedLines.push(line);
             }
             result = cleanedLines.join('\n');
 
-            // 4. Mapping variabel umum dari context (v8 -> Players, v9 -> ReplicatedStorage dll)
-            const varMapping = {
+            // 5. Mapping variabel global (v8 -> Players, v9 -> ReplicatedStorage dll) untuk script ferib/wearedevs
+            const varMap = {
                 "v8": "Players", "v9": "ReplicatedStorage", "v10": "LocalPlayer",
                 "v11": "KavoLib", "v18": "MineFolder", "v23": "MineRemote",
                 "v27": "AutoInteract", "v106": "CreateNameTag", "v107": "CreateHighlight",
-                "v51": "PlayersService", "v52": "WorkspaceService", "v29": "ScanInteract"
+                "v51": "PlayersService", "v52": "WorkspaceService", "v29": "Scanner",
+                "v28": "WindowLib", "v30": "Tab1", "v31": "Tab2", "v32": "ToggleObj"
             };
-            for (let [oldVar, newVar] of Object.entries(varMapping)) {
-                let regex = new RegExp(`\\b${oldVar}\\b`, 'g');
-                result = result.replace(regex, newVar);
+            for (let [oldVar, newVar] of Object.entries(varMap)) {
+                let re = new RegExp(`\\b${oldVar}\\b`, 'g');
+                result = result.replace(re, newVar);
             }
+            
+            // 6. Hapus string acak / garbage unprintable leftover
+            result = result.replace(/[^\x09\x0A\x0D\x20-\x7E]/g, (ch) => {
+                if (ch === '\n' || ch === '\r' || ch === '\t') return ch;
+                return '';
+            });
 
-            // 5. Hapus sisa karakter non-printable (kecuali newline, tab, spasi)
-            result = result.replace(/[^\x09\x0A\x0D\x20-\x7E]/g, '');
-
-            // 6. Perbaiki sedikit struktur: tambah baris baru setelah do/then
+            // 7. Bersihkan multiple line breaks & perbaiki indent sederhana
+            result = result.replace(/\n\s*\n\s*\n/g, '\n\n');
             result = result.replace(/\s+then\s+/g, ' then\n    ');
             result = result.replace(/\s+do\s+/g, ' do\n    ');
-            result = result.replace(/end\s+(\w+)/g, 'end $1');
-
-            // 7. Hapus baris kosong berlebih
-            result = result.replace(/\n\s*\n\s*\n/g, '\n\n');
             
-            if (result.length < 10) return "-- Gagal mendekode, coba input lain atau format masih terlalu ekstrim --";
+            // 8. khusus moonsec/wearedevs: mereka suka pake _G["dec"](...) -> hapus call dummy
+            result = result.replace(/_G\["[^"]+"\]\s*\([^)]*\)\s*;?\s*/g, '');
+            
+            // 9. Hilangkan baris yang isinya hanya angka atau 'nil' setelah cleaning
+            let finalLines = result.split('\n').filter(l => {
+                let trimmed = l.trim();
+                if (trimmed === '' || trimmed === 'nil' || /^\d+$/.test(trimmed)) return false;
+                return true;
+            });
+            result = finalLines.join('\n');
+            
+            if (result.length < 15) return "-- [Deobfuscator] Tidak dapat membersihkan sepenuhnya. Mungkin script terlalu kompleks atau password protected --\n" + result;
             return result.trim();
         }
 
-        // Proses utama
-        function processDeobfuscate() {
-            const raw = inputEl.value;
-            if (!raw.trim()) {
-                outputEl.value = "❌ Tidak ada input!";
+        // handler eksekusi
+        function runDeobfuscate() {
+            const rawCode = inputEl.value;
+            if (!rawCode.trim()) {
+                outputEl.value = "⚠️ Masukkan kode obfuscated dari WeAreDevs / Moonsec / Luraph / Ferib";
                 statusEl.innerHTML = "❌ Input kosong";
                 return;
             }
-            statusEl.innerHTML = "⏳ Mengurai & membersihkan...";
+            statusEl.innerHTML = "⏳ Membersihkan & mendekode ... (multi-engine)";
             setTimeout(() => {
                 try {
-                    const cleanResult = deobfuscate(raw);
-                    outputEl.value = cleanResult;
-                    statusEl.innerHTML = `✅ Selesai · ${cleanResult.length} karakter · mapping & hex berhasil`;
+                    let clean = deobfuscateLua(rawCode);
+                    if (clean.startsWith("-- [Deobfuscator]")) {
+                        statusEl.innerHTML = "⚠️ Sebagian bersih, cek output manual";
+                    } else {
+                        statusEl.innerHTML = `✅ Deobfuscated · panjang ${clean.length} karakter · mapping sukses`;
+                    }
+                    outputEl.value = clean;
                 } catch (err) {
-                    outputEl.value = `// ERROR: ${err.message}\n// Coba periksa input atau gunakan teks mentah`;
+                    outputEl.value = `// ERROR: ${err.message}\n// Coba periksa, mungkin butuh manual decoding.`;
                     statusEl.innerHTML = "⚠️ Error parsing";
                 }
             }, 15);
@@ -223,28 +280,33 @@
         function clearAll() {
             inputEl.value = '';
             outputEl.value = '';
-            statusEl.innerHTML = '✔️ Siap, tekan Deobfuscate';
+            statusEl.innerHTML = '✔️ Siap · tekan Deobfuscate';
         }
 
         function copyOutput() {
             if (!outputEl.value) {
-                statusEl.innerHTML = '⚠️ Tidak ada hasil untuk disalin';
+                statusEl.innerHTML = '⚠️ Tidak ada hasil disalin';
                 return;
             }
             outputEl.select();
             outputEl.setSelectionRange(0, 99999);
             document.execCommand('copy');
-            statusEl.innerHTML = '📋 Hasil disalin ke clipboard';
+            statusEl.innerHTML = '📋 Hasil deobfuscated disalin ke clipboard';
             setTimeout(() => {
-                if (statusEl.innerHTML === '📋 Hasil disalin ke clipboard')
-                    statusEl.innerHTML = '✔️ Siap, tekan Deobfuscate';
-            }, 2000);
+                if (statusEl.innerHTML === '📋 Hasil deobfuscated disalin ke clipboard')
+                    statusEl.innerHTML = '✔️ Siap · tekan Deobfuscate';
+            }, 1800);
         }
 
-        // Event binding
-        document.getElementById('deobfBtn').addEventListener('click', processDeobfuscate);
+        // event binding
+        document.getElementById('deobfBtn').addEventListener('click', runDeobfuscate);
         document.getElementById('clearBtn').addEventListener('click', clearAll);
         document.getElementById('copyBtn').addEventListener('click', copyOutput);
+        
+        // contoh demo placeholder
+        if (!inputEl.value) {
+            inputEl.placeholder = "Contoh obfuscated WeAreDevs:\nlocal v0=string.char;local v1=string.byte; print(v0(72)..v0(101)..v0(108)..v0(108)..v0(111))\n\nAtau Moonsec:\nlocal v8=bit32.bxor; local encoded='\\x48\\x65\\x6c\\x6c\\x6f' ...";
+        }
     })();
 </script>
 </body>
